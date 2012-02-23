@@ -28,7 +28,7 @@ class InterfaceMgr:public IInterface{
 
 class InterfaceMgr_callback:public InterfaceMgr{
   public:
-    InterfaceMgr_callback(PyObject *p, string name) : self(p), InterfaceMgr(name) {}  //  default construtor
+    InterfaceMgr_callback(PyObject *p, string name = "pyInterfaceMgr") : self(p), InterfaceMgr(name) {}  //  default construtor
     IInterface* create(string name){ return boost::python::call_method<IInterface*>(self, "create", name); }
     static IInterface*  default_create(InterfaceMgr& self_, string name) { return self_.InterfaceMgr::create(name);}  // necessary
     string getName(){ return boost::python::call_method<string>(self, "getName"); }

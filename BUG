@@ -1,0 +1,4 @@
+2012.02.23 by tianhl
+  cannot initialize InterfaceMgr without name in python.
+  for example:
+  aMgr = InterfaceMgr()
