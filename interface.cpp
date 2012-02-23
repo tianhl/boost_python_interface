@@ -5,46 +5,13 @@
 #include <boost/python.hpp>
 #include <boost/shared_ptr.hpp>
 
+#include "InterfaceMgr.h"
+#include "IInterface.h"
+
+
 using namespace boost::python;
 using namespace std;
 
-class IInterface
-{
-  public:
-    IInterface(string n):name(n){};
-    virtual ~IInterface(){};
-    virtual string getName() = 0;
-    string name;
-};
-
-class ImpInterface :public IInterface{
-  public:
-    ImpInterface(string n):IInterface(n){};
-    virtual string getName(){return name+"_Imp";};
-};
-
-class InterfaceMgr{
-  public:
-    IInterface* create(string name){ 
-      return dynamic_cast<IInterface*>(new  ImpInterface(name));
-    };
-};
-
-struct IInterface_callback :public IInterface, wrapper<IInterface>
-{
-  public:
-    IInterface_callback(string n) :  IInterface(n) {}  // boost::noncopyable  only default construtor
-    string getName() { return this->get_override("getName")(); }
-};
-
-class InterfaceMgr_callback:public InterfaceMgr{
-  public:
-    InterfaceMgr_callback(PyObject *p) : self(p) {}  //  default construtor
-    IInterface* create(string name){ return boost::python::call_method<IInterface*>(self, "create", name); }
-    static IInterface*  default_create(InterfaceMgr& self_, string name) { return self_.InterfaceMgr::create(name);}  // necessary
-  private:
-    PyObject *self;
-};
 
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(FM_createOverloader, InterfaceMgr::create, 1, 1)
 
@@ -54,7 +21,9 @@ BOOST_PYTHON_MODULE_INIT(interface)
     .def("getName", pure_virtual(&IInterface::getName))
     ;
 
-  class_<InterfaceMgr, boost::noncopyable, boost::shared_ptr<InterfaceMgr_callback> >("InterfaceMgr")
+  class_<InterfaceMgr, boost::noncopyable, boost::shared_ptr<InterfaceMgr_callback> >("InterfaceMgr", init<string>())
     .def("create",  &InterfaceMgr::create, FM_createOverloader()[return_internal_reference<>()])
+    .def("getName", &InterfaceMgr_callback::default_getName)
     ;
 }
+                                                                                                                                                             

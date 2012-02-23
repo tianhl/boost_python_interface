@@ -1,1 +1,20 @@
-cpp virtual interfaces manage by using python under the help of boost.python
+cpp virtual interfaces management by using python under the help of 
+boost.python
+
+              ____________     ___________
+	     |            |   |           |
+	     | IInterface |   | interface |
+	     |____________|   |___________|
+              /|\     /|\ 
+   ____________|_     _|____________
+  |              |   |              |
+  | InterfaceMgr |   | ImpInterface |
+  |______________|   |______________|
+
+IInterface.h
+InterfaceMgr.h
+
+ImpInterface.cpp ImpInterface.h
+
+interface.cpp
+interface.py
