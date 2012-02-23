@@ -20,9 +20,10 @@ class InterfaceMgr:public IInterface{
   public:
     InterfaceMgr(string name = "interfaceMgr"):IInterface(name){};
     IInterface* create(string name){ 
-      return dynamic_cast<IInterface*>(new  ImpInterface(name));
+      return dynamic_cast<IInterface*>(new  Imp2Interface(name));
     };
     string getName(){return name;}
+    virtual string getType(){return typeid(this).name();};
 };
 
 

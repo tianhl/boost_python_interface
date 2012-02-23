@@ -19,11 +19,13 @@ BOOST_PYTHON_MODULE_INIT(interface)
 {
   class_<IInterface_callback,boost::noncopyable>("IInterface", init<string>())
     .def("getName", pure_virtual(&IInterface::getName))
+    .def("getType", &IInterface::getType, &IInterface_callback::default_getType)
     ;
 
   class_<InterfaceMgr, boost::noncopyable, boost::shared_ptr<InterfaceMgr_callback> >("InterfaceMgr", init<string>())
     .def("create",  &InterfaceMgr::create, FM_createOverloader()[return_internal_reference<>()])
     .def("getName", &InterfaceMgr_callback::default_getName)
+    .def("getType", &InterfaceMgr::getType)
     ;
 }
                                                                                                                                                              
