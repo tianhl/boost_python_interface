@@ -27,8 +27,8 @@ struct IInterface_callback :public IInterface, wrapper<IInterface>
 {
   public:
     IInterface_callback(string n) :  IInterface(n) {}  // boost::noncopyable  only default construtor
-    string getName() { return this->get_override("getName")(); }
-    string getType(){
+    string getName() { return this->get_override("getName")(); }   // for pure virtual function
+    string getType(){                                                          // for virtual function
       if (override getType = this->get_override("getType")) return getType();
       else return IInterface::getType();
     }

@@ -2,8 +2,8 @@
 from interface import *
 aMgr = InterfaceMgr('interfaceMgr')
 #aMgr = InterfaceMgr()
-aImp = aMgr.create('callbymgr')
-bImp = aMgr.create('callbymgr_again')
+aImp = aMgr.create('ImpInterface','callbymgr0')
+bImp = aMgr.create('Imp2Interface','callbymgr2')
 
 print aMgr.getName(), "'s point is ", aMgr, ", and its type is ", aMgr.getType()   
 print aImp.getName(), "'s point is ", aImp, ", and its type is ", aImp.getType()

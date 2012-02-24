@@ -13,13 +13,14 @@ using namespace boost::python;
 using namespace std;
 
 
-BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(FM_createOverloader, InterfaceMgr::create, 1, 1)
+//BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS( overloadsname , classname::methodname, arg_minimum, arg_maximum )
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(FM_createOverloader, InterfaceMgr::create, 2, 2) // only 2 arguments
 
 BOOST_PYTHON_MODULE_INIT(interface)
-{
+{                                                                                    // need to expose all functions to python
   class_<IInterface_callback,boost::noncopyable>("IInterface", init<string>())
-    .def("getName", pure_virtual(&IInterface::getName))
-    .def("getType", &IInterface::getType, &IInterface_callback::default_getType)
+    .def("getName", pure_virtual(&IInterface::getName))                              // for pure virtual function
+    .def("getType", &IInterface::getType, &IInterface_callback::default_getType)     // for virtual function
     ;
 
   class_<InterfaceMgr, boost::noncopyable, boost::shared_ptr<InterfaceMgr_callback> >("InterfaceMgr", init<string>())
