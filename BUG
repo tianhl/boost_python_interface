@@ -1,4 +1,14 @@
-2012.02.23 by tianhl
-  cannot initialize InterfaceMgr without name in python.
-  for example:
-  aMgr = InterfaceMgr()
+BUG NO. 001 
+  001/status: submit@ 2012.02.23 by tianhl
+      discription:
+      cannot initialize InterfaceMgr without name in python.
+      for example:
+      aMgr = InterfaceMgr()
+    
+  002/status: fixed @ 2012.02.24 by tianhl
+      discription:
+      class_<InterfaceMgr>("InterfaceMgr", init<string>())
+                         ||
+    		         \/
+      class_<InterfaceMgr>("InterfaceMgr")
+        .def(init<string>())
