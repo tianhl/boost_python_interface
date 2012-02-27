@@ -17,7 +17,7 @@ using namespace std;
 //http://wiki.python.org/moin/boost.python/FunctionOverloading
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(FM_createOverloader, InterfaceMgr::create, 2, 2) // only 2 arguments
 
-BOOST_PYTHON_MODULE_INIT(interface)
+BOOST_PYTHON_MODULE_INIT(libInterface)
 {                                                                                    // need to expose all functions to python
   class_<IInterface_callback,boost::noncopyable>("IInterface", init<string>())
     .def("getName", pure_virtual(&IInterface::getName))                              // for pure virtual function

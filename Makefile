@@ -7,10 +7,12 @@ SOURCE = src/*.cpp
 LIB = test/libInterface.so
 EXE = test/test.cpp
 
-all:${LIB} ${EXE}
-	g++ -L test -lInterface ${LIB_FLAGS} -lpython2.6 ${EXE} -o test/test.exe
+#all:${LIB} ${EXE}
+#	g++ -L test -lInterface ${LIB_FLAGS} -lpython2.6 ${EXE} -o test/test.exe
 
-${LIB}:${SOURCE}
+#${LIB}:${SOURCE}
+	#g++ ${PYTHON_INCLUDE_FLAGS} ${SOURCE} ${LIB_FLAGS} -shared -o test/libInterface.so
+all:${SOURCE}
 	g++ ${PYTHON_INCLUDE_FLAGS} ${SOURCE} ${LIB_FLAGS} -shared -o test/libInterface.so
 
 clean:

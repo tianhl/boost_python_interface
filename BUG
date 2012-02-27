@@ -12,3 +12,13 @@ BUG NO. 001
     		         \/
       class_<InterfaceMgr>("InterfaceMgr")
         .def(init<string>())
+
+BUG NO. 002
+  001/status: submit@ 2012.02.27 by tianhl
+      discription:
+      py cannot load dynamic lib
+
+  002/status: fixed @ 2012.02.27 by tianhl
+      discription:
+      the dll file name and BOOST_PYTHON_MODULE_INIT name
+      must be same
