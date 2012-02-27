@@ -22,3 +22,9 @@ BUG NO. 002
       discription:
       the dll file name and BOOST_PYTHON_MODULE_INIT name
       must be same
+
+BUG NO. 003
+  001/status: submit@ 2012.02.27 by tianhl
+      discription:
+      test/test.exe cannot execute in other direction
+      only can execute in test/ direction

@@ -8,7 +8,7 @@ LIB = test/libInterface.so
 EXE = test/test.cpp
 
 all:${LIB} ${EXE}
-	g++ -L test -lInterface ${LIB_FLAGS}  ${EXE} -o test/test.exe
+	g++ ${PYTHON_INCLUDE_FLAGS} -L test -lInterface ${LIB_FLAGS}  ${EXE} -o test/test.exe
 
 ${LIB}:${SOURCE}
 	g++ ${PYTHON_INCLUDE_FLAGS} ${SOURCE} ${LIB_FLAGS} -shared -o test/libInterface.so
