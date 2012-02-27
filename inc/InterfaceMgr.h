@@ -13,8 +13,8 @@
 #include <boost/shared_ptr.hpp>
 
 // interfaceMgr
-#include "ImpInterface.h"
-#include "IInterface.h"
+#include "../inc/ImpInterface.h"
+#include "../inc/IInterface.h"
 
 using namespace std;
 

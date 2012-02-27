@@ -1,6 +1,6 @@
 #ifndef IMPINTERFACE_H
 #define IMPINTERFACE_H
-#include "IInterface.h"
+#include "../inc/IInterface.h"
 using namespace std;
 
 

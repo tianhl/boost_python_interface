@@ -5,8 +5,8 @@
 #include <boost/python.hpp>
 #include <boost/shared_ptr.hpp>
 
-#include "InterfaceMgr.h"
-#include "IInterface.h"
+#include "../inc/InterfaceMgr.h"
+#include "../inc/IInterface.h"
 
 
 using namespace boost::python;
