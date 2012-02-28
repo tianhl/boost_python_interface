@@ -1,20 +1,22 @@
 cpp virtual interfaces management by using python under the help of 
 boost.python
 
-              ____________     ___________
-	     |            |   |           |
-	     | IInterface |   | interface |
-	     |____________|   |___________|
-              /|\     /|\ 
-   ____________|_     _|____________
-  |              |   |              |
-  | InterfaceMgr |   | ImpInterface |
-  |______________|   |______________|
+     ________        ____________       __________________
+    |        |      |            |     |                  |
+    | cppExe |<-----| IInterface |---->| InterfaceWrapper |
+    |________|      |____________|     |__________________|
+                      /|\     /|\                    |
+           ____________|_     _|____________     ___\|/___
+          |              |   |              |   |         |
+          | InterfaceMgr |   | ImpInterface |   |  pyExe  |
+          |______________|   |______________|   |_________|
 
 IInterface.h
 InterfaceMgr.h
 
 ImpInterface.cpp ImpInterface.h
 
-interface.cpp
+InterfaceWrapper.cpp
+
+test.cpp
 interface.py

@@ -16,6 +16,7 @@ using namespace std;
 //BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS( overloadsname , classname::methodname, arg_minimum, arg_maximum )
 //http://wiki.python.org/moin/boost.python/FunctionOverloading
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(FM_createOverloader, InterfaceMgr::create, 2, 2) // only 2 arguments
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(FM_getOverloader, InterfaceMgr::getInterface, 1, 1) // only 1 arguments
 
 BOOST_PYTHON_MODULE_INIT(libInterface)
 {                                                                                    // need to expose all functions to python
@@ -30,6 +31,7 @@ BOOST_PYTHON_MODULE_INIT(libInterface)
   class_<InterfaceMgr>("InterfaceMgr")
     .def(init<string>())
     .def("create",   &InterfaceMgr::create, FM_createOverloader()[return_internal_reference<>()])  // necessary
+    .def("getInterface",   &InterfaceMgr::getInterface, FM_getOverloader()[return_internal_reference<>()])  // necessary
     .def("getName",  &InterfaceMgr::getName)
     .def("sayHello", &InterfaceMgr::sayHello)
     .def("getType",  &InterfaceMgr::getType)
