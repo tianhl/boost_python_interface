@@ -33,3 +33,7 @@ BUG NO. 004
   001/status: submit@ 2012.02.28 by tianhl
       discription:
       py cannot call interfaceMgr at singleton mode
+  
+  002/status: fixed@ 2012.02.28 by tianhl
+      discription:
+      add a function define in InterfaceWrapper

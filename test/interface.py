@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from libInterface import *
-#aMgr = InterfaceMgr('interfaceMgr')
-aMgr = InterfaceMgr()
+
+aMgr = IfaceMgr()
 aImp = aMgr.create('ImpInterface','callbymgr0')
 bImp = aMgr.create('Imp2Interface','callbymgr2')
 

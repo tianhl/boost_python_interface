@@ -7,8 +7,8 @@ boost.python
     |________|      |____________|     |__________________|
                       /|\     /|\                    |
            ____________|_     _|____________     ___\|/___
-          |              |   |              |   |         |
-          | InterfaceMgr |   | ImpInterface |   |  pyExe  |
+          | InterfaceMgr |   |              |   |         |
+          | (Singletion) |   | ImpInterface |   |  pyExe  |
           |______________|   |______________|   |_________|
 
 IInterface.h
