@@ -15,6 +15,7 @@
 #include <boost/shared_ptr.hpp>
 
 // interfaceMgr
+#include "../inc/SingletionHolder.h"
 #include "../inc/ImpInterface.h"
 #include "../inc/IInterface.h"
 
@@ -23,31 +24,36 @@ using namespace std;
 
 class InterfaceMgr:public IInterface{
   public:
-    InterfaceMgr(string name = "cppInterfaceMgr"):IInterface(name){};
+
     IInterface* create(const string& ifaceType, const string& ifaceName){ 
       IInterface* ifacePtr = NULL;
       if (ifaceType == "Imp2Interface") ifacePtr = dynamic_cast<IInterface*>(new  Imp2Interface(ifaceName));
       if (ifaceType == "ImpInterface")  ifacePtr = dynamic_cast<IInterface*>(new   ImpInterface(ifaceName));
-      ifacesMap.insert(std::map<std::string,IInterface*>::value_type(ifaceName, ifacePtr));
+      ifaces_map.insert(std::map<std::string,IInterface*>::value_type(ifaceName, ifacePtr));
       return ifacePtr;
     };
+
     IInterface* getInterface(std::string ifaceName){
-       std::map<std::string,IInterface*>::iterator  ifacePair = ifacesMap.find(ifaceName);
-      return (ifacePair == ifacesMap.end()) ? NULL : ifacePair->second;
+       std::map<std::string,IInterface*>::iterator  ifacePair = ifaces_map.find(ifaceName);
+      return (ifacePair == ifaces_map.end()) ? NULL : ifacePair->second;
     }
+
+    // for test
     string getName(){return name;}
     virtual string getType(){return typeid(this).name();};
     string sayHello(){return getName() + " say hello ";};
   private:
-    std::map<std::string, IInterface*> ifacesMap;
+    friend struct CreateUsingNew<InterfaceMgr>;
+    InterfaceMgr():IInterface("cppInterfaceMgr"){};
+    std::map<std::string, IInterface*> ifaces_map;
 };
 
-//using namespace boost::python;
-//
-//class InterfaceMgr_callback:public InterfaceMgr{
+//template class SingletonHolder<InterfaceMgr>;
+typedef SingletonHolder<InterfaceMgr> IfaceMgr;
+
+//class IfaceMgrWrapper{
 //  public:
-//    InterfaceMgr_callback(PyObject *p, string name = "pyInterfaceMgr") : self(p), InterfaceMgr(name) {}  //  default construtor
-//  private:
-//    PyObject *self;
-//};
+//    InterfaceMgr& Instance(){return IfaceMgr::Instance();}
+//}
+
 #endif  // IINTERFACEMGR_H

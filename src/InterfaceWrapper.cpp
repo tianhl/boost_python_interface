@@ -7,6 +7,7 @@
 
 #include "../inc/InterfaceMgr.h"
 #include "../inc/IInterface.h"
+#include "../inc/SingletionHolder.h"
 
 
 using namespace boost::python;
@@ -17,6 +18,7 @@ using namespace std;
 //http://wiki.python.org/moin/boost.python/FunctionOverloading
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(FM_createOverloader, InterfaceMgr::create, 2, 2) // only 2 arguments
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(FM_getOverloader, InterfaceMgr::getInterface, 1, 1) // only 1 arguments
+//BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(FM_instanceOverloader, IfaceMgr::Instance, 0, 0) // only 1 arguments
 
 BOOST_PYTHON_MODULE_INIT(libInterface)
 {                                                                                    // need to expose all functions to python
@@ -28,13 +30,21 @@ BOOST_PYTHON_MODULE_INIT(libInterface)
   //class_<InterfaceMgr, boost::noncopyable, boost::shared_ptr<InterfaceMgr_callback> >("InterfaceMgr", init<string>())
   //class_<InterfaceMgr, boost::noncopyable>("InterfaceMgr", init<string>())
   //class_<InterfaceMgr>("InterfaceMgr", init<string>())
-  class_<InterfaceMgr>("InterfaceMgr")
-    .def(init<string>())
+  class_<InterfaceMgr>("InterfaceMgr", no_init)
+//    .def("instance", &IfaceMgr::Instance, FM_instanceOverloader()[return_internal_reference<>()])
     .def("create",   &InterfaceMgr::create, FM_createOverloader()[return_internal_reference<>()])  // necessary
     .def("getInterface",   &InterfaceMgr::getInterface, FM_getOverloader()[return_internal_reference<>()])  // necessary
     .def("getName",  &InterfaceMgr::getName)
     .def("sayHello", &InterfaceMgr::sayHello)
     .def("getType",  &InterfaceMgr::getType)
     ;
+
+////  def("create", create, return_value_policy<manage_new_object>());
+//  class_<IfaceMgrWrapper>("IfaceMgr")
+//    //.staticmethod("Instance", &IfaceMgr::Instance, FM_instanceOverloader()[return_value_policy<manage_new_object>()])
+//    .def("Instance", &IfaceMgrWrapper::Instance, FM_instanceOverloader()[return_value_policy<manage_new_object>()])
+//    //.staticmethod("Instance", &IfaceMgrWrapper::Instance, FM_instanceOverloader()[  return_internal_reference<>()  ])
+//    ;
+//
 }
                                                                                                                                                              

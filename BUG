@@ -28,3 +28,8 @@ BUG NO. 003
       discription:
       test/test.exe cannot execute in other direction
       only can execute in test/ direction
+
+BUG NO. 004
+  001/status: submit@ 2012.02.28 by tianhl
+      discription:
+      py cannot call interfaceMgr at singleton mode
