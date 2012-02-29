@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from libInterface import *
+from PyInterface import *
 
 aMgr = IfaceMgr()
 aImp = aMgr.create('ImpInterface','callbymgr0')

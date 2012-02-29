@@ -1,18 +1,19 @@
 cpp virtual interfaces management by using python under the help of 
 boost.python
 
-     ________        ____________       __________________
-    |        |      |            |     |                  |
-    | cppExe |<-----| IInterface |---->| InterfaceWrapper |
-    |________|      |____________|     |__________________|
-                      /|\     /|\                    |
-           ____________|_     _|____________     ___\|/___
-          | InterfaceMgr |   |              |   |         |
-          | (Singletion) |   | ImpInterface |   |  pyExe  |
-          |______________|   |______________|   |_________|
-
+             ________        ____________       __________________
+            |        |      |            |     |                  |
+            | cppExe |<-----| IInterface |---->| InterfaceWrapper |
+            |________|      |____________|     |__________________|
+                              /|\     /|\                    |
+   ____________    ____________|_     _|____________     ___\|/___
+  | Singletion |  | InterfaceMgr |   |              |   |         |
+  |   Holder   |<-| (Singletion) |   | ImpInterface |   |  pyExe  |
+  |____________|  |______________|   |______________|   |_________|
+        
 IInterface.h
 InterfaceMgr.h
+SingletionHolder.h
 
 ImpInterface.cpp ImpInterface.h
 
