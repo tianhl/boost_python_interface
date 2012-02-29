@@ -23,7 +23,7 @@ BUG NO. 002
       the dll file name and BOOST_PYTHON_MODULE_INIT name
       must be same
 
-BUG NO. 003
+* BUG NO. 003
   001/status: submit@ 2012.02.27 by tianhl
       discription:
       test/test.exe cannot execute in other direction
@@ -37,3 +37,8 @@ BUG NO. 004
   002/status: fixed@ 2012.02.28 by tianhl
       discription:
       add a function define in InterfaceWrapper
+
+* BUG NO. 005
+  001/status: submit@ 2012.02.29 by tianhl
+      discription:
+      ~InterfaceMgr cannot set to be private when boost.python
