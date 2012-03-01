@@ -27,7 +27,7 @@ class InterfaceMgr:public IInterface{
   public:
 
     IInterface* create(const string& ifaceType, const string& ifaceName); 
-    IInterface* getInterface(std::string ifaceName);
+    IInterface* getInterface(const std::string& ifaceName);
 
     // for test
     string getName(){return name;};

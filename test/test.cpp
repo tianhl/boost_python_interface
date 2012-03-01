@@ -7,9 +7,8 @@ using namespace std;
 int main(void)
 {
   //InterfaceMgr* pMgr = new InterfaceMgr();
-  InterfaceMgr& rMgr  = IfaceMgr::Instance();
-  LibraryMgr* aLibMgr = static_cast<LibraryMgr*>(rMgr.getInterface("LibMgr"));
-  aLibMgr->OpenAllLibraries("../app/");
+  InterfaceMgr* aIfaceMgr  = &IfaceMgr::Instance();
+  LibraryMgr* aLibMgr = static_cast<LibraryMgr*>(aIfaceMgr->getInterface("LibMgr"));
   std::cout << "aLibMgr name: " << aLibMgr->getName() << std::endl;
   std::cout << "aLibMgr type: " << typeid(aLibMgr) << std::endl;
    
