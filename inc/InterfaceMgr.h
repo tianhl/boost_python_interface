@@ -16,9 +16,10 @@
 
 // interfaceMgr
 #include "../inc/SingletionHolder.h"
-#include "../inc/ImpInterface.h"
 #include "../inc/IInterface.h"
 #include "../inc/LibraryMgr.h"
+
+//#include "../app/ImpInterface.h"
 
 using namespace std;
 

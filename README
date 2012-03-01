@@ -1,21 +1,29 @@
 cpp virtual interfaces management by using python under the help of 
 boost.python
 
-             ________        ____________       __________________
-            |        |      |            |     |                  |
-            | cppExe |<-----| IInterface |---->| InterfaceWrapper |
-            |________|      |____________|     |__________________|
-                              /|\     /|\                    |
-   ____________    ____________|_     _|____________     ___\|/___
-  | Singletion |  | InterfaceMgr |   |              |   |         |
-  |   Holder   |<-| (Singletion) |   | ImpInterface |   |  pyExe  |
-  |____________|  |______________|   |______________|   |_________|
-        
-IInterface.h
-InterfaceMgr.h
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
++             ________        ____________       __________________  +
++            |        |      |            |     |                  | +
++            | cppExe |<-----| IInterface |---->| InterfaceWrapper | +
++            |________|      |____________|     |__________________| +
++                             /|\ /|\  /|\                    |      +
++  ____________    ____________|_  |   _|____________     ___\|/___  +
++ | Singletion |  | InterfaceMgr | |  |              |   |         | +
++ |   Holder   |<-| (Singletion) | |  | ImpInterface |   |  pyExe  | +
++ |____________|  |______________| |  |______________|   |_________| +
++      /|\	            _______|______                           +    
++       |	           |  LibraryMgr  |                          +
++       |------------------| (Singletion) |                          +
++                          |______________|                          +
++                                                                    +                
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+IInterface.h                              
 SingletionHolder.h
 
-ImpInterface.cpp ImpInterface.h
+InterfaceMgr.cpp  InterfaceMgr.h
+LibraryMgr.cpp    LibraryMgr.h
+ImpInterface.cpp  ImpInterface.h
 
 InterfaceWrapper.cpp
 

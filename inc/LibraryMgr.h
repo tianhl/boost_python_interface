@@ -42,14 +42,11 @@ class DllOpen {
 
   private:
     /// Constructor private as not needed
-    DllOpen()
-    {};
+    DllOpen() {};
     /// Copy operator private as not needed
-    DllOpen(const DllOpen &)
-    {};
+    DllOpen(const DllOpen &) {};
     ///Destructor private as not needed	
-    ~DllOpen()
-    {};
+    ~DllOpen() {};
 
     //private functions specific to implementation
     /// Implementation specifc static method for opening a shared library

@@ -1,4 +1,4 @@
-#include "../inc/ImpInterface.h"
+#include "../app/ImpInterface.h"
 
 string ImpInterface::getName(){return name;}; 
 string ImpInterface::getType(){return typeid(this).name();};
