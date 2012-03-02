@@ -26,7 +26,9 @@ using namespace std;
 class InterfaceMgr:public IInterface{
   public:
 
-    IInterface* create(const string& ifaceType, const string& ifaceName); 
+    template<typename T>
+    IInterface* create(const string& ifaceName); 
+
     IInterface* getInterface(const std::string& ifaceName);
 
     // for test
@@ -45,7 +47,9 @@ class InterfaceMgr:public IInterface{
     /////Private Destructor
     //virtual ~InterfaceMgr();
 
-    std::map<std::string, IInterface*> ifaces_map;
+    //std::map<std::string, IInterface*> ifaces_map;
+    typedef std::map<std::string, IInterface*> IFACES_MAP;
+    IFACES_MAP ifaces_map;
     LibraryMgr* libMgr;
 };
 

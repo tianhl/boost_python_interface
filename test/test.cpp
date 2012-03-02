@@ -1,20 +1,21 @@
 #include "../inc/IInterface.h"
 #include "../inc/InterfaceMgr.h"
 #include "../inc/LibraryMgr.h"
+#include "../app/ImpInterface.h"
 #include <iostream>
 using namespace std;
 
 int main(void)
 {
   //InterfaceMgr* pMgr = new InterfaceMgr();
-  InterfaceMgr* aIfaceMgr  = &IfaceMgr::Instance();
+  InterfaceMgr* aIfaceMgr  = IfaceMgr::ptr();
   LibraryMgr* aLibMgr = static_cast<LibraryMgr*>(aIfaceMgr->getInterface("LibMgr"));
   std::cout << "aLibMgr name: " << aLibMgr->getName() << std::endl;
   std::cout << "aLibMgr type: " << typeid(aLibMgr) << std::endl;
    
 
 
-  //IInterface* pImp0  = rMgr.create("ImpInterface", "callatcpp");
+  //IInterface* pImp0  = aIfaceMgr->create<ImpInterface>("ImpInterface");
   //IInterface* pImp1 = rMgr.getInterface("callatcpp");
   //
   //std::cout << pImp0->getName() << "'s point is " << pImp0 << ", and its type is " << pImp0->getType() << std::endl;

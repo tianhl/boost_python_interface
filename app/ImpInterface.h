@@ -6,7 +6,7 @@ using namespace std;
 
 class ImpInterface :public IInterface{
   public:
-    ImpInterface(string n):IInterface(n){};
+    ImpInterface(string n):IInterface(n){ };
     virtual string getName();
     virtual string getType();
 };

@@ -27,7 +27,7 @@ BOOST_PYTHON_MODULE_INIT(PyInterface)
     ;
 
   class_<InterfaceMgr>("InterfaceMgr", no_init)
-    .def("create",   &InterfaceMgr::create, FM_createOverloader()[return_internal_reference<>()])  // necessary
+  //  .def("create",         &InterfaceMgr::create, FM_createOverloader()[return_internal_reference<>()])  // necessary
     .def("getInterface",   &InterfaceMgr::getInterface, FM_getOverloader()[return_internal_reference<>()])  // necessary
     .def("getName",  &InterfaceMgr::getName)
     .def("sayHello", &InterfaceMgr::sayHello)
@@ -35,6 +35,6 @@ BOOST_PYTHON_MODULE_INIT(PyInterface)
     ;
 
   // http://boost.sourceforge.net/libs/python/doc/v2/reference_existing_object.html
-  def("IfaceMgr", &IfaceMgr::Instance, return_value_policy<reference_existing_object>());
+  def("IfaceMgr", &IfaceMgr::ptr, return_value_policy<reference_existing_object>());
 }
                                                                                                                                                              

@@ -11,11 +11,10 @@ template <typename T>
 class SingletonHolder
 {
   public:
-    static T& Instance();
+    static T* ptr();
 
   private:
     static void DestroySingleton();
-    /// default constructor marked private so only access is via the Instance() method
     SingletonHolder();
 
     static T* pInstance;
@@ -29,10 +28,10 @@ struct CreateUsingNew
 };
 
 template <typename T>
-inline T& SingletonHolder<T>::Instance()
+inline T* SingletonHolder<T>::ptr()
 {
   if (!pInstance) pInstance = CreateUsingNew<T>::Create();
-  return *pInstance;
+  return pInstance;
 };
 
 template <typename T>
