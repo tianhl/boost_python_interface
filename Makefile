@@ -21,7 +21,7 @@ APP    = test/libImpInterface.so
 #	g++ ${INCLUDE_FLAGS} -L test -lInterface  -lImpInterface  ${LIB_FLAGS}  ${CPPEXESOURCE} -o test/test.exe
 #
 all: ${KERNELSOURCE} ${CPPEXESOURCE}  ${APPSOURCE}
-	g++ ${INCLUDE_FLAGS} -L test -lInterface  -lImpInterface  ${LIB_FLAGS} ${APPSOURCE} ${KERNELSOURCE}   ${CPPEXESOURCE} -o test/test.exe
+	g++ ${INCLUDE_FLAGS}  ${LIB_FLAGS} ${APPSOURCE} ${KERNELSOURCE}   ${CPPEXESOURCE} -o test/test.exe
 
 #${PYLIB}:${KERNEL} ${WRAPPERSOURCE} ${APP}
 #	g++ ${INCLUDE_FLAGS}  -L test -lInterface -lImpInterface  ${LIB_FLAGS}  ${WRAPPERSOURCE} -shared -o test/PyInterface.so
