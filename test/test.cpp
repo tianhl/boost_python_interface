@@ -9,7 +9,6 @@ int main(void)
 {
   //InterfaceMgr* pMgr = new InterfaceMgr();
   InterfaceMgr* aIfaceMgr  = IfaceMgr::ptr();
-  aIfaceMgr->regist<ImpInterface>("ImpInterface");
   LibraryMgr* aLibMgr = static_cast<LibraryMgr*>(aIfaceMgr->getInterface("LibMgr"));
   std::cout << "aLibMgr name: " << aLibMgr->getName() << std::endl;
   std::cout << "aLibMgr type: " << typeid(aLibMgr) << std::endl;

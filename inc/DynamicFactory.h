@@ -66,13 +66,11 @@ class DynamicFactory
     }
 
 
-  protected:
     DynamicFactory() { }  
-
-  private:
     DynamicFactory(const DynamicFactory&);
     DynamicFactory& operator = (const DynamicFactory&);
 
+  private:
     typedef std::map<std::string, AbstractFactory*> FactoryMap;
     FactoryMap _map;
 };
