@@ -18,19 +18,22 @@
 #include "../inc/SingletionHolder.h"
 #include "../inc/IInterface.h"
 #include "../inc/LibraryMgr.h"
+#include "../inc/DynamicFactory.h"
 
 //#include "../app/ImpInterface.h"
 
 using namespace std;
 
-class InterfaceMgr:public IInterface{
+class InterfaceMgr:public IInterface, public  DynamicFactory<IInterface>{
   public:
-
-    template<typename T>
-    IInterface* create(const string& ifaceName); 
 
     IInterface* getInterface(const std::string& ifaceName);
 
+    IInterface* create(const std::string& className, const std::string& ifaceName){
+      IInterface* iface = DynamicFactory<IInterface>::create(className, ifaceName);
+      ifaces_map.insert(IFACES_MAP::value_type(ifaceName, iface));
+      return iface;
+    }
     // for test
     string getName(){return name;};
     virtual string getType(){return typeid(this).name();};
@@ -51,6 +54,10 @@ class InterfaceMgr:public IInterface{
     typedef std::map<std::string, IInterface*> IFACES_MAP;
     IFACES_MAP ifaces_map;
     LibraryMgr* libMgr;
+
+//    class InterfaceFactory:public DynamicFactory<IInterface>{
+//    }
+
 };
 
 typedef SingletonHolder<InterfaceMgr> IfaceMgr;

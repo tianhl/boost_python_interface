@@ -42,3 +42,9 @@ BUG NO. 004
   001/status: submit@ 2012.02.29 by tianhl
       discription:
       ~InterfaceMgr cannot set to be private when boost.python
+
+* BUG NO. 006
+  001/status: submit@ 2012.03.02 by tianhl
+      discription:
+      Makefile cannot compile *.so, for template problem
+      Python script cannot used

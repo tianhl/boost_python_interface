@@ -19,12 +19,7 @@ class AbstractInstantiator {
 public:
   AbstractInstantiator() { }
   virtual ~AbstractInstantiator() { }
-  virtual boost::shared_ptr<Base> createInstance() const = 0;
-  virtual Base* createUnwrappedInstance() const = 0;
-
-private:
-  AbstractInstantiator(const AbstractInstantiator&);
-  AbstractInstantiator& operator = (const AbstractInstantiator&);
+  virtual Base* createInstance(const std::string& instanceName) const = 0;
 };
 
 template <class C, class Base>
@@ -32,7 +27,7 @@ class Instantiator: public AbstractInstantiator<Base> {
 public:
   Instantiator() { }
   virtual ~Instantiator() { }
-  boost::shared_ptr<Base> createInstance() const { return boost::shared_ptr<Base>(new C); }
+  Base* createInstance(const std::string& instanceName) const { return dynamic_cast<Base*>(new C(instanceName)); }
 };
 
 template <class Base>
@@ -45,9 +40,9 @@ class DynamicFactory
       for (typename FactoryMap::iterator it = _map.begin(); it != _map.end(); ++it) {delete it->second;}
     }
 
-    virtual boost::shared_ptr<Base> create(const std::string& className) const {   
+    virtual Base* create(const std::string& className, const std::string& instanceName) const {   
       typename FactoryMap::const_iterator it = _map.find(className);
-      if (it != _map.end()) return it->second->createInstance();
+      if (it != _map.end()) return it->second->createInstance(instanceName);
       else throw std::runtime_error("DynamicFactory:"+ className + " is not registered.\n");
     }
 
@@ -55,29 +50,19 @@ class DynamicFactory
     void regist(const std::string& className) { regist(className, new Instantiator<C, Base>); }
 
 
-    void regist(const std::string& className, AbstractFactory* pAbstractFactory) {
-      typename FactoryMap::iterator it = _map.find(className);
-      (!className.empty() && it == _map.end()) ?  _map[className] = pAbstractFactory : delete pAbstractFactory;
-    }
 
-    void unregist(const std::string& className) {
+    void regist(const std::string& className, AbstractFactory* pAbstractFactory)
+    {
       typename FactoryMap::iterator it = _map.find(className);
-      if (!className.empty() && it != _map.end()) {
-	delete it->second;
-	_map.erase(it);
+      if (!className.empty() && it == _map.end())
+      {
+	_map[className] = pAbstractFactory;
       }
-    }
-
-    bool exists(const std::string& className) const { return _map.find(className) != _map.end(); }
-
-    virtual const std::vector<std::string> getKeys() const {
-      std::vector<std::string> names;
-      names.reserve(_map.size());
-
-      typename FactoryMap::const_iterator iter = _map.begin();
-      for (; iter != _map.end(); ++iter) { names.push_back(iter->first); }
-
-      return names;
+      else
+      {
+	delete pAbstractFactory;
+	throw std::runtime_error(className + " is already registered.\n");
+      }
     }
 
 
