@@ -23,11 +23,14 @@ BUG NO. 002
       the dll file name and BOOST_PYTHON_MODULE_INIT name
       must be same
 
-* BUG NO. 003
+BUG NO. 003
   001/status: submit@ 2012.02.27 by tianhl
       discription:
       test/test.exe cannot execute in other direction
       only can execute in test/ direction
+  002/status: fixed @ 2012.03.05 by tianhl
+      discription:
+      set $LD_LIBRARY_PATH
 
 BUG NO. 004
   001/status: submit@ 2012.02.28 by tianhl
@@ -43,8 +46,15 @@ BUG NO. 004
       discription:
       ~InterfaceMgr cannot set to be private when boost.python
 
-* BUG NO. 006
+BUG NO. 006
   001/status: submit@ 2012.03.02 by tianhl
       discription:
       Makefile cannot compile *.so, for template problem
       Python script cannot used
+  002/status: fixed @ 2012.03.05 by tianhl
+      discription:
+      class InterfaceMgr: public DynamicFactory<Interface>{}
+                        ||
+			\/
+      class InterfaceFactory:  public DynamicFactory<Interface>{}
+      class InterfaceMgr{ ...InterfaceFactory...}

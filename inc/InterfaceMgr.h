@@ -24,13 +24,22 @@
 
 using namespace std;
 
-class InterfaceMgr:public IInterface, public  DynamicFactory<IInterface>{
+class InterfaceFactory:public  DynamicFactory<IInterface>{
+  public:
+    IInterface* create(const std::string& className, const std::string& ifaceName){
+      return DynamicFactory<IInterface>::create(className, ifaceName);
+    }
+
+};
+typedef SingletonHolder<InterfaceFactory> IfaceFactory;
+
+class InterfaceMgr:public IInterface{
   public:
 
     IInterface* getInterface(const std::string& ifaceName);
 
     IInterface* create(const std::string& className, const std::string& ifaceName){
-      IInterface* iface = DynamicFactory<IInterface>::create(className, ifaceName);
+      IInterface* iface = IfaceFactory::instance().create(className, ifaceName);
       ifaces_map.insert(IFACES_MAP::value_type(ifaceName, iface));
       return iface;
     }

@@ -14,6 +14,7 @@ int main(void)
   std::cout << "aLibMgr type: " << typeid(aLibMgr) << std::endl;
 
 
+  //DynamicFactory<IInterface>::regist<ImpInterface>("ImpInterface");
 
   IInterface* pImp1 = aIfaceMgr->create("ImpInterface", "ImpInterface");
   IInterface* pImp0 = aIfaceMgr->getInterface("ImpInterface");

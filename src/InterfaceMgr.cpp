@@ -8,7 +8,7 @@ InterfaceMgr::InterfaceMgr():IInterface("IfaceMgr"){
    ifaces_map.insert(IFACES_MAP::value_type(this->getName(), this));
    ifaces_map.insert(IFACES_MAP::value_type(libMgr->getName(), dynamic_cast<IInterface*>(libMgr)));
 
-   regist<ImpInterface>("ImpInterface");
+  IfaceFactory::instance().regist<ImpInterface>("ImpInterface");
 }
 
 IInterface* InterfaceMgr::getInterface(const string& ifaceName){

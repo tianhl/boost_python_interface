@@ -49,8 +49,6 @@ class DynamicFactory
     template <class C> 
     void regist(const std::string& className) { regist(className, new Instantiator<C, Base>); }
 
-
-
     void regist(const std::string& className, AbstractFactory* pAbstractFactory)
     {
       typename FactoryMap::iterator it = _map.find(className);
@@ -64,7 +62,6 @@ class DynamicFactory
 	throw std::runtime_error(className + " is already registered.\n");
       }
     }
-
 
     DynamicFactory() { }  
     DynamicFactory(const DynamicFactory&);

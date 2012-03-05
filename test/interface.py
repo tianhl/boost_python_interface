@@ -9,7 +9,7 @@ aImp = aMgr.create('ImpInterface','callbymgr0')
 dllmgr = aMgr.getInterface('LibMgr')
 
 print aMgr.getName(), "'s point is ", aMgr, ", and its type is ", aMgr.getType()   
-#print aImp.getName(), "'s point is ", aImp, ", and its type is ", aImp.getType()
+print aImp.getName(), "'s point is ", aImp, ", and its type is ", aImp.getType()
 #print bImp.getName(), "'s point is ", bImp, ", and its type is ", bImp.getType()
 #if tmpImp is None :
 #  print 'called by mgr faiture'

@@ -1,6 +1,7 @@
 #ifndef IMPINTERFACE_H
 #define IMPINTERFACE_H
 #include "../inc/IInterface.h"
+#include "../inc/InterfaceMgr.h"
 using namespace std;
 
 
@@ -18,5 +19,6 @@ class Imp2Interface :public ImpInterface{
     virtual string getType();
 };
 
+//DynamicFactory<IInterface>::regist<ImpInterface>("ImpInterface");
 #endif  // IMPINTERFACE_H
 

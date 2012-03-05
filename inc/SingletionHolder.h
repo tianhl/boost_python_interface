@@ -12,6 +12,7 @@ class SingletonHolder
 {
   public:
     static T* ptr();
+    static T& instance();
 
   private:
     static void DestroySingleton();
@@ -32,6 +33,13 @@ inline T* SingletonHolder<T>::ptr()
 {
   if (!pInstance) pInstance = CreateUsingNew<T>::Create();
   return pInstance;
+};
+
+template <typename T>
+inline T& SingletonHolder<T>::instance()
+{
+  if (!pInstance) pInstance = CreateUsingNew<T>::Create();
+  return *pInstance;
 };
 
 template <typename T>
