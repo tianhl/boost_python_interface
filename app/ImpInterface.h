@@ -19,11 +19,14 @@ class Imp2Interface :public ImpInterface{
     virtual string getType();
 };
 
-static struct Register{
+// it can defined in .cpp file without static
+// or defined in .h file with static
+struct Register{
   Register(){
     IfaceFactory::instance().regist<ImpInterface>("ImpInterface");
     IfaceFactory::instance().regist<Imp2Interface>("Imp2Interface");
   }
-} impinterface_regist;
+};
+static Register impinterface_regist;
 #endif  // IMPINTERFACE_H
 
