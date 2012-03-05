@@ -24,14 +24,15 @@
 
 using namespace std;
 
-class InterfaceFactory:public  DynamicFactory<IInterface>{
-  public:
-    IInterface* create(const std::string& className, const std::string& ifaceName){
-      return DynamicFactory<IInterface>::create(className, ifaceName);
-    }
-
-};
-typedef SingletonHolder<InterfaceFactory> IfaceFactory;
+//class InterfaceFactory:public  DynamicFactory<IInterface>{
+//  public:
+//    IInterface* create(const std::string& className, const std::string& ifaceName){
+//      return DynamicFactory<IInterface>::create(className, ifaceName);
+//    }
+//
+//};
+//typedef SingletonHolder<InterfaceFactory> IfaceFactory;
+typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
 
 class InterfaceMgr:public IInterface{
   public:
