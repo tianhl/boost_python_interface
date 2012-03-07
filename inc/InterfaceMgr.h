@@ -24,24 +24,23 @@
 
 using namespace std;
 
-//class InterfaceFactory:public  DynamicFactory<IInterface>{
-//  public:
-//    IInterface* create(const std::string& className, const std::string& ifaceName){
-//      return DynamicFactory<IInterface>::create(className, ifaceName);
-//    }
-//
-//};
-//typedef SingletonHolder<InterfaceFactory> IfaceFactory;
 typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
 
+template<class T>
 class InterfaceMgr:public IInterface{
   public:
 
-    IInterface* getInterface(const std::string& ifaceName);
+    T* getInterface(const std::string& ifaceName){
+      //ifaces_map::iterator it_iface  = ifaces_map.find(ifaceName);
+      //return it_iface != ifaces_map.end()?dynamic_cast<T*>(it_iface->second):NULL;
+      return ifaces_map.find(ifaceName) != ifaces_map.end() ?  dynamic_cast<T*>(ifaces_map.find(ifaceName)->second)  : NULL ;
+      return NULL;
+    };
 
     IInterface* create(const std::string& className, const std::string& ifaceName){
-      IInterface* iface = IfaceFactory::instance().create(className, ifaceName);
-      ifaces_map.insert(IFACES_MAP::value_type(ifaceName, iface));
+      T* iface = IfaceFactory::instance().create(className, ifaceName);
+      //ifaces_map.insert(IFACES_MAP::value_type(ifaceName, iface));
+      ifaces_map.insert(std::pair<std::string, T*>(ifaceName, iface));
       return iface;
     }
     // for test
@@ -50,7 +49,8 @@ class InterfaceMgr:public IInterface{
     string sayHello(){return getName() + " say hello ";};
 
   private:
-    friend struct CreateUsingNew<InterfaceMgr>;
+    friend struct CreateUsingNew<InterfaceMgr<T> >;
+    //friend struct CreateNewMgr;
     ///Private Constructor
     InterfaceMgr();
     //// Private copy constructor - NO COPY ALLOWED
@@ -60,17 +60,25 @@ class InterfaceMgr:public IInterface{
     /////Private Destructor
     //virtual ~InterfaceMgr();
 
-    //std::map<std::string, IInterface*> ifaces_map;
-    typedef std::map<std::string, IInterface*> IFACES_MAP;
-    IFACES_MAP ifaces_map;
+    std::map<std::string, T*> ifaces_map;
+    // why map<std::string, T*>::iterator cannot work?
+    //typedef std::map<std::string, T*> IFACES_MAP;
+    //IFACES_MAP ifaces_map;
     LibraryMgr* libMgr;
 
-//    class InterfaceFactory:public DynamicFactory<IInterface>{
-//    }
+    //    class InterfaceFactory:public DynamicFactory<IInterface>{
+    //    }
 
 };
 
-typedef SingletonHolder<InterfaceMgr> IfaceMgr;
+//typedef SingletonHolder<InterfaceMgr> IfaceMgr;
+typedef SingletonHolder<InterfaceMgr<IInterface> > IfaceMgr;
+static struct CreateNewMgr{
+  CreateNewMgr(){
+     typedef CreateUsingNew<InterfaceMgr<IInterface> > CreateNewInterfaceMgr;
+     CreateNewInterfaceMgr::Create();
+  }
+} createNewMgr;
 
 
 #endif  // IINTERFACEMGR_H

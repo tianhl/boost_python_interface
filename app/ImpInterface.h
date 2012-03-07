@@ -27,6 +27,5 @@ struct Register{
     IfaceFactory::instance().regist<Imp2Interface>("Imp2Interface");
   }
 };
-static Register impinterface_regist;
 #endif  // IMPINTERFACE_H
 

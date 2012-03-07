@@ -58,3 +58,8 @@ BUG NO. 006
 			\/
       class InterfaceFactory:  public DynamicFactory<Interface>{}
       class InterfaceMgr{ ...InterfaceFactory...}
+
+*BUG NO. 007
+  001/status: submit@ 2012.03.07 by tianhl
+      discription:
+      Python wrapper and script cannnot work
