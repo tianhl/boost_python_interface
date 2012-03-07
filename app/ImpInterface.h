@@ -23,8 +23,8 @@ class Imp2Interface :public ImpInterface{
 // or defined in .h file with static
 struct Register{
   Register(){
-    IfaceFactory::instance().regist<ImpInterface>("ImpInterface");
-    IfaceFactory::instance().regist<Imp2Interface>("Imp2Interface");
+    IfaceMgr::instance().regist<ImpInterface>("ImpInterface");
+    IfaceMgr::instance().regist<Imp2Interface>("Imp2Interface");
   }
 };
 #endif  // IMPINTERFACE_H

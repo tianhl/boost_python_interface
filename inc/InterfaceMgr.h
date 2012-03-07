@@ -24,24 +24,26 @@
 
 using namespace std;
 
-typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
 
 template<class T>
 class InterfaceMgr:public IInterface{
   public:
 
     T* getInterface(const std::string& ifaceName){
-      //ifaces_map::iterator it_iface  = ifaces_map.find(ifaceName);
-      //return it_iface != ifaces_map.end()?dynamic_cast<T*>(it_iface->second):NULL;
+      // why map<std::string, T*>::iterator cannot work?
       return ifaces_map.find(ifaceName) != ifaces_map.end() ?  dynamic_cast<T*>(ifaces_map.find(ifaceName)->second)  : NULL ;
       return NULL;
     };
 
     IInterface* create(const std::string& className, const std::string& ifaceName){
       T* iface = IfaceFactory::instance().create(className, ifaceName);
-      //ifaces_map.insert(IFACES_MAP::value_type(ifaceName, iface));
       ifaces_map.insert(std::pair<std::string, T*>(ifaceName, iface));
       return iface;
+    }
+
+    template<class C>
+    void regist(std::string ifaceName){
+      IfaceFactory::instance().regist<C>(ifaceName);
     }
     // for test
     string getName(){return name;};
@@ -50,28 +52,13 @@ class InterfaceMgr:public IInterface{
 
   private:
     friend struct CreateUsingNew<InterfaceMgr<T> >;
-    //friend struct CreateNewMgr;
-    ///Private Constructor
     InterfaceMgr();
-    //// Private copy constructor - NO COPY ALLOWED
-    //InterfaceMgr(const InterfaceMgr&);
-    ///// Private assignment operator - NO ASSIGNMENT ALLOWED
-    //InterfaceMgr& operator = (const InterfaceMgr&);
-    /////Private Destructor
-    //virtual ~InterfaceMgr();
 
     std::map<std::string, T*> ifaces_map;
-    // why map<std::string, T*>::iterator cannot work?
-    //typedef std::map<std::string, T*> IFACES_MAP;
-    //IFACES_MAP ifaces_map;
     LibraryMgr* libMgr;
-
-    //    class InterfaceFactory:public DynamicFactory<IInterface>{
-    //    }
-
+    typedef SingletonHolder<DynamicFactory<T> > IfaceFactory;
 };
 
-//typedef SingletonHolder<InterfaceMgr> IfaceMgr;
 typedef SingletonHolder<InterfaceMgr<IInterface> > IfaceMgr;
 static struct CreateNewMgr{
   CreateNewMgr(){
