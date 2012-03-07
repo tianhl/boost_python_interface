@@ -19,11 +19,11 @@ class Imp2Interface :public ImpInterface{
     virtual string getType();
 };
 
-static struct Register{
+struct Register{
   Register(){
     IfaceFactory::instance().regist<ImpInterface>("ImpInterface");
     IfaceFactory::instance().regist<Imp2Interface>("Imp2Interface");
   }
-} impinterface_regist;
+};
 #endif  // IMPINTERFACE_H
 
