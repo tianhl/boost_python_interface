@@ -1,13 +1,11 @@
 #include "../inc/InterfaceMgr.h"
-#include "../app/ImpInterface.h"
 #include <boost/lambda/lambda.hpp>
 #include <boost/function.hpp>
 
-template<class T>
-InterfaceMgr<T>::InterfaceMgr():IInterface("IfaceMgr"){
+InterfaceManager::InterfaceManager():IInterface("IfaceMgr"){
    libMgr  = LibMgr::ptr();
-   ifaces_map.insert(std::pair<std::string, T*>(this->getName(), this));
-   ifaces_map.insert(std::pair<std::string, T*>(libMgr->getName(), dynamic_cast<T*>(libMgr)));
+   ifaces_map.insert(std::pair<std::string,IInterface*>(this->getName(), this));
+   ifaces_map.insert(std::pair<std::string,IInterface*>(libMgr->getName(), dynamic_cast<IInterface*>(libMgr)));
 }
 
 //template<class T>
