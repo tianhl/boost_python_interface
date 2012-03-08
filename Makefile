@@ -12,7 +12,7 @@ WRAPPERSOURCE = src/InterfaceWrapper.cpp
 #KERNELSOURCE  = src/InterfaceMgr.cpp src/LibraryMgr.cpp
 KERNELSOURCE  = src/LibraryMgr.cpp
 CPPEXESOURCE  = test/test.cpp
-APPSOURCE     = app/ImpInterface.cpp 
+APPSOURCE     = alg/ImpInterface.cpp 
 
 KERNEL = test/libInterface.so
 PYLIB  = test/PyInterface.so

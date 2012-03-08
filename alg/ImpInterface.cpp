@@ -1,4 +1,4 @@
-#include "../app/ImpInterface.h"
+#include "../alg/ImpInterface.h"
 
 static Register impinterface_regist;
 string ImpInterface::getName(){return name;}; 
