@@ -21,6 +21,7 @@ APP    = test/libImpInterface.so
 #	g++ ${INCLUDE_FLAGS}  ${LIB_FLAGS} ${APPSOURCE} ${KERNELSOURCE}   ${CPPEXESOURCE} -o test/test.exe
 #
 all:${KERNEL}   ${PYLIB}   ${CPPEXESOURCE} 
+#all:${KERNEL}    ${CPPEXESOURCE} 
 	g++ ${INCLUDE_FLAGS} -L test -lInterface    ${LIB_FLAGS}  ${CPPEXESOURCE} -o test/test.exe
 
 ${PYLIB}:${KERNEL} ${WRAPPERSOURCE} 

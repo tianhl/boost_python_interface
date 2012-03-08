@@ -41,13 +41,13 @@ class DynamicManager
     InterfaceMap _map;
 };
 
-class ServiceManager:public IInterface{
+class InterfaceManager:public IInterface{
   public:
     IInterface* getInterface(const std::string& ifaceName){
-      return SvcMgrImp::instance().getInterface(ifaceName);
+      return IfaceMgrImp::instance().getInterface(ifaceName);
     }
     IInterface* create(const std::string& className, const std::string& ifaceName){
-      return SvcMgrImp::instance().create(className, ifaceName);
+      return IfaceMgrImp::instance().create(className, ifaceName);
     }
     std::string getName(){return name;}
     virtual string getType(){return typeid(this).name();};
@@ -55,74 +55,74 @@ class ServiceManager:public IInterface{
 
     template<class C>
     void regist(std::string ifaceName){
-      IfaceFactory::instance().regist<C>(ifaceName);
+      InterfaceFactory::instance().regist<C>(ifaceName);
     };
 
 
   private:
-    friend struct CreateUsingNew<ServiceManager>;
-    ServiceManager();
+    friend struct CreateUsingNew<InterfaceManager>;
+    InterfaceManager();
 
-    class SvcMgr: public DynamicManager<IInterface> {
+    class InterfaceManagerImp: public DynamicManager<IInterface> {
       public:
 	virtual IInterface* create(const std::string& className, const std::string& ifaceName){
-	  IInterface* iface = IfaceFactory::instance().create(className, ifaceName);
+	  IInterface* iface = InterfaceFactory::instance().create(className, ifaceName);
 	  insert(ifaceName, iface);
 	  return iface;
 	}
     };
 
-    typedef SingletonHolder<SvcMgr > SvcMgrImp;
-    typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
+    typedef SingletonHolder<InterfaceManagerImp > IfaceMgrImp;
+    typedef SingletonHolder<DynamicFactory<IInterface> > InterfaceFactory;
 
 };
 
-typedef SingletonHolder<ServiceManager> ISvcMgr;
+typedef SingletonHolder<InterfaceManager> IfaceMgr;
 
-class InterfaceMgr:public IInterface{
-  public:
-
-    IInterface* getInterface(const std::string& ifaceName);
-
-    IInterface* create(const std::string& className, const std::string& ifaceName){
-      IInterface* iface = IfaceFactory::instance().create(className, ifaceName);
-      ifaces_map.insert(IFACES_MAP::value_type(ifaceName, iface));
-      return iface;
-    };
-    // for test
-    string getName(){return name;};
-    virtual string getType(){return typeid(this).name();};
-    string sayHello(){return getName() + " say hello ";};
-
-    template<class C>
-    void regist(std::string ifaceName){
-      IfaceFactory::instance().regist<C>(ifaceName);
-    };
-
-  private:
-    friend struct CreateUsingNew<InterfaceMgr>;
-    ///Private Constructor
-    InterfaceMgr();
-    //// Private copy constructor - NO COPY ALLOWED
-    //InterfaceMgr(const InterfaceMgr&);
-    ///// Private assignment operator - NO ASSIGNMENT ALLOWED
-    //InterfaceMgr& operator = (const InterfaceMgr&);
-    /////Private Destructor
-    //virtual ~InterfaceMgr();
-
-    //std::map<std::string, IInterface*> ifaces_map;
-    typedef std::map<std::string, IInterface*> IFACES_MAP;
-    IFACES_MAP ifaces_map;
-    LibraryMgr* libMgr;
-
-    typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
-    //    class InterfaceFactory:public DynamicFactory<IInterface>{
-    //    }
-
-};
-
-
-typedef SingletonHolder<InterfaceMgr> IfaceMgr;
+//class InterfaceMgr:public IInterface{
+//  public:
+//
+//    IInterface* getInterface(const std::string& ifaceName);
+//
+//    IInterface* create(const std::string& className, const std::string& ifaceName){
+//      IInterface* iface = IfaceFactory::instance().create(className, ifaceName);
+//      ifaces_map.insert(IFACES_MAP::value_type(ifaceName, iface));
+//      return iface;
+//    };
+//    // for test
+//    string getName(){return name;};
+//    virtual string getType(){return typeid(this).name();};
+//    string sayHello(){return getName() + " say hello ";};
+//
+//    template<class C>
+//    void regist(std::string ifaceName){
+//      IfaceFactory::instance().regist<C>(ifaceName);
+//    };
+//
+//  private:
+//    friend struct CreateUsingNew<InterfaceMgr>;
+//    ///Private Constructor
+//    InterfaceMgr();
+//    //// Private copy constructor - NO COPY ALLOWED
+//    //InterfaceMgr(const InterfaceMgr&);
+//    ///// Private assignment operator - NO ASSIGNMENT ALLOWED
+//    //InterfaceMgr& operator = (const InterfaceMgr&);
+//    /////Private Destructor
+//    //virtual ~InterfaceMgr();
+//
+//    //std::map<std::string, IInterface*> ifaces_map;
+//    typedef std::map<std::string, IInterface*> IFACES_MAP;
+//    IFACES_MAP ifaces_map;
+//    LibraryMgr* libMgr;
+//
+//    typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
+//    //    class InterfaceFactory:public DynamicFactory<IInterface>{
+//    //    }
+//
+//};
+//
+//
+//typedef SingletonHolder<InterfaceMgr> IfaceMgr;
 
 
 #endif  // IINTERFACEMGR_H
