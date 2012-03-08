@@ -24,15 +24,51 @@
 
 using namespace std;
 
-//class InterfaceFactory:public  DynamicFactory<IInterface>{
-//  public:
-//    IInterface* create(const std::string& className, const std::string& ifaceName){
-//      return DynamicFactory<IInterface>::create(className, ifaceName);
-//    }
-//
-//};
-//typedef SingletonHolder<InterfaceFactory> IfaceFactory;
 typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
+
+template<class T>
+class DynamicManager
+{
+  public:
+    virtual T* getInterface(const std::string& ifaceName){
+      return  _map.find(ifaceName) != _map.end()?dynamic_cast<T*>(_map.find(ifaceName)->second):NULL;
+    }
+    virtual T* create(const std::string& className, const std::string& ifaceName)=0;
+    void insert(const std::string& ifaceName, T* iface){
+      _map.insert(std::pair<std::string, T*>(ifaceName, iface));
+    }
+  private:
+    typedef std::map<std::string, T*> InterfaceMap;
+    InterfaceMap _map;
+};
+
+class SvcMgr: public DynamicManager<IInterface> {
+  public:
+    virtual IInterface* create(const std::string& className, const std::string& ifaceName){
+      IInterface* iface = IfaceFactory::instance().create(className, ifaceName);
+      insert(ifaceName, iface);
+      return iface;
+    }
+};
+
+typedef SingletonHolder<SvcMgr > SvcMgrImp;
+
+class ServiceManager:public IInterface{
+  public:
+    IInterface* getInterface(const std::string& ifaceName){
+      return SvcMgrImp::instance().getInterface(ifaceName);
+    }
+    IInterface* create(const std::string& className, const std::string& ifaceName){
+      return SvcMgrImp::instance().create(className, ifaceName);
+    }
+    std::string getName(){return name;}
+
+  private:
+    friend struct CreateUsingNew<ServiceManager>;
+    ServiceManager();
+};
+
+typedef SingletonHolder<ServiceManager> ISvcMgr;
 
 class InterfaceMgr:public IInterface{
   public:
@@ -65,10 +101,11 @@ class InterfaceMgr:public IInterface{
     IFACES_MAP ifaces_map;
     LibraryMgr* libMgr;
 
-//    class InterfaceFactory:public DynamicFactory<IInterface>{
-//    }
+    //    class InterfaceFactory:public DynamicFactory<IInterface>{
+    //    }
 
 };
+
 
 typedef SingletonHolder<InterfaceMgr> IfaceMgr;
 

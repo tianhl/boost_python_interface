@@ -3,6 +3,9 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/function.hpp>
 
+ServiceManager::ServiceManager():IInterface("SvcMgr"){
+}
+
 InterfaceMgr::InterfaceMgr():IInterface("IfaceMgr"){
    libMgr  = LibMgr::ptr();
    ifaces_map.insert(IFACES_MAP::value_type(this->getName(), this));
