@@ -11,17 +11,27 @@ boost.python
 + | Singletion |  | InterfaceMgr | |  |              |   |         | +
 + |   Holder   |<-| (Singletion) | |  | ImpInterface |   |  pyExe  | +
 + |____________|  |______________| |  |______________|   |_________| +
-+      /|\	            _______|______                           +    
-+       |	           |  LibraryMgr  |                          +
-+       |------------------| (Singletion) |                          +
-+                          |______________|                          +
++      /|\	    / \     _______|______                           +    
++       |	    \ /    |  LibraryMgr  |                          +
++       |------------|-----| (Singletion) |                          +
++                    |     |______________|                          +
++                    |                                               +                
++              ______|_________                                      +                
++             | DynamicFactory |                                     +                
++             | DynamicManager |                                     +                
++             |  <IInterface>  |                                     +                
++             |________________|                                     +                
++                                                                    +                
++                                                                    +                
 +                                                                    +                
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 IInterface.h                              
 SingletionHolder.h
+DynamicFactory.h
+DynamicManager.h
 
-InterfaceMgr.cpp  InterfaceMgr.h
+InterfaceManager.cpp  InterfaceManager.h
 LibraryMgr.cpp    LibraryMgr.h
 ImpInterface.cpp  ImpInterface.h
 

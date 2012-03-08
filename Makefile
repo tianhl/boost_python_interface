@@ -9,7 +9,8 @@ LIB_FLAGS += -lPocoFoundation
 
 
 WRAPPERSOURCE = src/InterfaceWrapper.cpp
-KERNELSOURCE  = src/InterfaceMgr.cpp src/LibraryMgr.cpp
+#KERNELSOURCE  = src/InterfaceMgr.cpp src/LibraryMgr.cpp
+KERNELSOURCE  = src/LibraryMgr.cpp
 CPPEXESOURCE  = test/test.cpp
 APPSOURCE     = app/ImpInterface.cpp 
 

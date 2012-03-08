@@ -60,6 +60,7 @@ class DynamicFactory
       {
 	delete pAbstractFactory;
 	//throw std::runtime_error(className + " is already registered.\n");
+	std::cout << className << " is already registerde." << std::endl;
       }
     }
 
