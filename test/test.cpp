@@ -22,6 +22,7 @@ int main(void)
   IInterface* pImp1 = aIfaceMgr->getInterface("ImpInterface");
   IInterface* pImp3 = aIfaceMgr->create("Imp2Interface", "Imp2Interface");
   IInterface* pImp4 = aIfaceMgr->getInterface("Imp2Interface");
+  //IInterface* pImp5 = aIfaceMgr->getInterface("Imp5Interface");
   
   std::cout << pImp0->getName() << "'s point is " << pImp0 << ", and its type is " << pImp0->getType() << std::endl;
   std::cout << pImp1->getName() << "'s point is " << pImp1 << ", and its type is " << pImp1->getType() << std::endl;

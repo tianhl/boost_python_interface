@@ -4,6 +4,7 @@ from PyInterface import *
 aMgr = IfaceMgr()
 aImp = aMgr.create('ImpInterface','callbymgr0')
 bImp = aMgr.create('Imp2Interface','callbymgr2')
+cImp = aMgr.create('Imp2Interface','callbymgr2')
 
 #tmpImp = aMgr.getInterface('callbymgr')
 #dllmgr = aMgr.getInterface('LibMgr')

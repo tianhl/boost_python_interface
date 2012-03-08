@@ -19,6 +19,8 @@ class IInterface
     virtual string getType(){return typeid(this).name();}
 
 
+    typedef std::pair<std::string, std::string> ID;
+    ID id;
     string name;
 };
 

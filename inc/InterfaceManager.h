@@ -17,7 +17,9 @@ using namespace std;
 class InterfaceManager:public IInterface{
   public:
     IInterface* getInterface(const std::string& ifaceName){
-      return IfaceMgrImp::instance().getInterface(ifaceName);
+      IInterface* iface = IfaceMgrImp::instance().getInterface(ifaceName);
+      if (iface != NULL) return iface;
+      //else create(ifaceName, ifaceName);
     }
     IInterface* create(const std::string& className, const std::string& ifaceName){
       return IfaceMgrImp::instance().create(className, ifaceName);
