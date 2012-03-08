@@ -59,7 +59,7 @@ class DynamicFactory
       else
       {
 	delete pAbstractFactory;
-	throw std::runtime_error(className + " is already registered.\n");
+	//throw std::runtime_error(className + " is already registered.\n");
       }
     }
 

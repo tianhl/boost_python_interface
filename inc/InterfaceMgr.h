@@ -24,7 +24,6 @@
 
 using namespace std;
 
-typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
 
 template<class T>
 class DynamicManager
@@ -42,17 +41,6 @@ class DynamicManager
     InterfaceMap _map;
 };
 
-class SvcMgr: public DynamicManager<IInterface> {
-  public:
-    virtual IInterface* create(const std::string& className, const std::string& ifaceName){
-      IInterface* iface = IfaceFactory::instance().create(className, ifaceName);
-      insert(ifaceName, iface);
-      return iface;
-    }
-};
-
-typedef SingletonHolder<SvcMgr > SvcMgrImp;
-
 class ServiceManager:public IInterface{
   public:
     IInterface* getInterface(const std::string& ifaceName){
@@ -62,10 +50,31 @@ class ServiceManager:public IInterface{
       return SvcMgrImp::instance().create(className, ifaceName);
     }
     std::string getName(){return name;}
+    virtual string getType(){return typeid(this).name();};
+    string sayHello(){return getName() + " say hello ";};
+
+    template<class C>
+    void regist(std::string ifaceName){
+      IfaceFactory::instance().regist<C>(ifaceName);
+    };
+
 
   private:
     friend struct CreateUsingNew<ServiceManager>;
     ServiceManager();
+
+    class SvcMgr: public DynamicManager<IInterface> {
+      public:
+	virtual IInterface* create(const std::string& className, const std::string& ifaceName){
+	  IInterface* iface = IfaceFactory::instance().create(className, ifaceName);
+	  insert(ifaceName, iface);
+	  return iface;
+	}
+    };
+
+    typedef SingletonHolder<SvcMgr > SvcMgrImp;
+    typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
+
 };
 
 typedef SingletonHolder<ServiceManager> ISvcMgr;
@@ -79,11 +88,16 @@ class InterfaceMgr:public IInterface{
       IInterface* iface = IfaceFactory::instance().create(className, ifaceName);
       ifaces_map.insert(IFACES_MAP::value_type(ifaceName, iface));
       return iface;
-    }
+    };
     // for test
     string getName(){return name;};
     virtual string getType(){return typeid(this).name();};
     string sayHello(){return getName() + " say hello ";};
+
+    template<class C>
+    void regist(std::string ifaceName){
+      IfaceFactory::instance().regist<C>(ifaceName);
+    };
 
   private:
     friend struct CreateUsingNew<InterfaceMgr>;
@@ -101,6 +115,7 @@ class InterfaceMgr:public IInterface{
     IFACES_MAP ifaces_map;
     LibraryMgr* libMgr;
 
+    typedef SingletonHolder<DynamicFactory<IInterface> > IfaceFactory;
     //    class InterfaceFactory:public DynamicFactory<IInterface>{
     //    }
 
