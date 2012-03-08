@@ -1,5 +1,5 @@
 #include "../inc/IInterface.h"
-#include "../inc/InterfaceMgr.h"
+#include "../inc/InterfaceManager.h"
 #include "../inc/LibraryMgr.h"
 #include "../app/ImpInterface.h"
 #include <iostream>

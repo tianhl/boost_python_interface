@@ -1,7 +1,7 @@
 #ifndef IMPINTERFACE_H
 #define IMPINTERFACE_H
 #include "../inc/IInterface.h"
-#include "../inc/InterfaceMgr.h"
+#include "../inc/InterfaceManager.h"
 using namespace std;
 
 

@@ -5,7 +5,7 @@
 #include <boost/python.hpp>
 #include <boost/shared_ptr.hpp>
 
-#include "../inc/InterfaceMgr.h"
+#include "../inc/InterfaceManager.h"
 #include "../inc/IInterface.h"
 #include "../inc/SingletionHolder.h"
 

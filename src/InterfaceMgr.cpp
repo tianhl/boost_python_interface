@@ -1,5 +1,4 @@
-#include "../inc/InterfaceMgr.h"
-#include "../app/ImpInterface.h"
+#include "../inc/InterfaceManager.h"
 #include <boost/lambda/lambda.hpp>
 #include <boost/function.hpp>
 
