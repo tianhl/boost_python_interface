@@ -1,6 +1,6 @@
 #include "../inc/IInterface.h"
 #include "../inc/InterfaceManager.h"
-#include "../inc/LibraryMgr.h"
+#include "../svc/DllSvc.h"
 #include "../alg/ImpInterface.h"
 #include <iostream>
 using namespace std;

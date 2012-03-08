@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../inc/LibraryMgr.h"
+#include "../svc/DllSvc.h"
 
 #include <Poco/Path.h>
 #include <Poco/File.h>
