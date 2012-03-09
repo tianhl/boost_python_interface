@@ -7,27 +7,30 @@ LIB_FLAGS =  -lboost_python
 LIB_FLAGS += -lpython2.6
 LIB_FLAGS += -lPocoFoundation
 
+SHARE := -fPIC -shared -o
+CC    := g++
 
 PYSOURCE      = src/InterfaceWrapper.cpp
-SVCSOURCE     = svc/DllSvc.cpp
+SVCSOURCE     = svc/*.cpp  svc/*.h
 EXESOURCE     = test/test.cpp
-ALGSOURCE     = alg/ImpInterface.cpp 
+ALGSOURCE     = alg/*.cpp alg/*.h 
+KERNELSOURCE  = inc/*.h
 
-SVCLIB  = test/libInterface.so
+SVCLIB  = test/libSvsBPI.so
 PYLIB   = test/PyInterface.so
-ALGLIB  = test/libImpInterface.so
+ALGLIB  = test/libAlgBPI.so
 
 all: ${ALGLIB} ${SVCLIB} ${EXESOURCE} ${PYLIB} 
-	g++ ${INCLUDE_FLAGS} -L test -lImpInterface -lInterface ${LIB_FLAGS}  ${EXESOURCE} -o test/test.exe
+	${CC} ${INCLUDE_FLAGS} -L test -lSvcBPI -lAlgBPI ${LIB_FLAGS}  ${EXESOURCE} -o test/test.exe
 
-${PYLIB}: ${PYSOURCE} 
-	g++ ${INCLUDE_FLAGS} -L test -lImpInterface -lInterface ${LIB_FLAGS}  ${PYSOURCE} -shared -o test/PyInterface.so
+${PYLIB}:${PYSOURCE} ${KERNELSOURCE} 
+	${CC} ${INCLUDE_FLAGS} -L test -lSvcBPI -lAlgBPI ${LIB_FLAGS}  ${PYSOURCE} ${SHARE} test/PyInterface.so
 
-${SVCLIB}:${SVCSOURCE} 
-	g++ ${INCLUDE_FLAGS} ${LIB_FLAGS} ${SVCSOURCE}  -shared -o test/libInterface.so
+${SVCLIB}:${SVCSOURCE} ${KERNELSOURCE}
+	${CC} ${INCLUDE_FLAGS} ${LIB_FLAGS} ${SVCSOURCE}  ${SHARE} test/libSvcBPI.so
 
-${ALGLIB}: ${ALGSOURCE}
-	g++ ${INCLUDE_FLAGS} ${LIB_FLAGS}  ${ALGSOURCE} -shared -o test/libImpInterface.so
+${ALGLIB}:${ALGSOURCE} ${KERNELSOURCE}
+	${CC} ${INCLUDE_FLAGS} ${LIB_FLAGS}  ${ALGSOURCE} ${SHARE} test/libAlgBPI.so
 
 clean:
 	rm -f test/*.o test/*.out test/*.so test/*.exe 

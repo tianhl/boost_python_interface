@@ -25,6 +25,19 @@ class DynamicManager
 	std::cout << ifaceName << " is already existed." << std::endl;
       }
     }
+
+    virtual const std::vector<std::string> getKeys() const {
+      std::vector<std::string> names;
+      names.reserve(_map.size());
+
+      typename InterfaceMap::const_iterator iter = _map.begin();
+      for (; iter != _map.end(); ++iter) {
+	names.push_back(iter->first);
+      }
+
+      return names;
+    }
+
   private:
     typedef std::map<std::string, T*> InterfaceMap;
     InterfaceMap _map;
