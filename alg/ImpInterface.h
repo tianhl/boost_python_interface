@@ -7,7 +7,7 @@ using namespace std;
 
 class ImpInterface :public IInterface{
   public:
-    ImpInterface():IInterface("ImpInterface"){id = make_pair(name, typeid(this).name()); };
+    ImpInterface():IInterface("ImpInterface"){};//id = make_pair(name, typeid(this).name()); };
     ImpInterface(string n):IInterface(n){ };
     virtual string getName();
     virtual string getType();

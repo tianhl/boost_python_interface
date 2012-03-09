@@ -37,7 +37,7 @@ BUG NO. 004
       discription:
       py cannot call interfaceMgr at singleton mode
   
-  002/status: fixed@ 2012.02.28 by tianhl
+  002/status: nobug@ 2012.02.28 by tianhl
       discription:
       add a function define in InterfaceWrapper
 
@@ -51,6 +51,7 @@ BUG NO. 006
       discription:
       Makefile cannot compile *.so, for template problem
       Python script cannot used
+
   002/status: fixed @ 2012.03.05 by tianhl
       discription:
       class InterfaceMgr: public DynamicFactory<Interface>{}

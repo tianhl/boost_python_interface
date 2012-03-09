@@ -6,11 +6,11 @@
 using namespace std;
 
 
-Config::Config(string name, string parentDebugInfo) {
+CfgSvc::CfgSvc(string name, string parentDebugInfo):IInterface(name) {
   debugInfo = parentDebugInfo + ", " + name;
 }
 
-Config::Config(string configFile, char** envp) {
+CfgSvc::CfgSvc(string configFile, char** envp):IInterface("CfgSvc") {
   while (envp && *envp) {
     string envEntry = *envp;
     size_t pos = envEntry.find('=');
@@ -18,7 +18,7 @@ Config::Config(string configFile, char** envp) {
       string name = envEntry.substr(0, pos);
       string value = envEntry.substr(pos+1, string::npos);
       envSymbols[name] = value;
-      logDebug(cout << "environment symbol: '" << name << "' = '" << value << "'" << endl);
+      //logDebug(cout << "environment symbol: '" << name << "' = '" << value << "'" << endl);
     }
     ++envp;
   }
@@ -28,7 +28,7 @@ Config::Config(string configFile, char** envp) {
 
   FILE* in = fopen(configFile.c_str(), "r");
   if (!in) {
-    cerr << "Configure file '" << configFile << "' don't exist !!" << endl;
+    cerr << "CfgSvcure file '" << configFile << "' don't exist !!" << endl;
     exit(2);
   }
 
@@ -42,21 +42,21 @@ Config::Config(string configFile, char** envp) {
       split(line, name, value, '=');
 
       if (value == "(") {
-	logDebug(cout << "   config: new group '" << name << "'" << endl);
-	Config* newGroup = new Config(name, debugInfo);
+	//logDebug(cout << "   config: new group '" << name << "'" << endl);
+	CfgSvc* newGroup = new CfgSvc(name, debugInfo);
 	groupStack.front()->groups[name] = newGroup;
 	groupStack.push_front(newGroup);
       } else {
-	for (list<Config*>::reverse_iterator i = groupStack.rbegin(); i != groupStack.rend(); ++i) {
+	for (std::list<CfgSvc*>::reverse_iterator i = groupStack.rbegin(); i != groupStack.rend(); ++i) {
 	  (*i)->symbolExpand(value);
 	}
 	envSymbolExpand(value);
-	logDebug(cout << "   config: name = '" << name << "', value = '" << value << "'" << endl);
+	//logDebug(cout << "   config: name = '" << name << "', value = '" << value << "'" << endl);
 	groupStack.front()->add(name, value);
       }
     }
     if ( (line.length() > 0) && (line[0] != '#') && (line.find(')') != string::npos) ) {
-      logDebug(cout << "   end of group" << endl);
+      //logDebug(cout << "   end of group" << endl);
       groupStack.pop_front();
     }
   }
@@ -64,17 +64,17 @@ Config::Config(string configFile, char** envp) {
   fclose(in);
 }
 
-Config::~Config() {
-  for (map<string, Config*>::iterator i = groups.begin(); i != groups.end(); ++i) {
+CfgSvc::~CfgSvc() {
+  for (map<string, CfgSvc*>::iterator i = groups.begin(); i != groups.end(); ++i) {
     delete i->second;
   }
 }
 
-void Config::add(string name, string value) {
+void CfgSvc::add(string name, string value) {
   symbols[name] = value;
 }
 
-void Config::split(string in, string& left, string& right, char c) {
+void CfgSvc::split(string in, string& left, string& right, char c) {
   size_t pos = in.find_first_of(c);
   if(pos == string::npos) {
     left = in;
@@ -92,7 +92,7 @@ void Config::split(string in, string& left, string& right, char c) {
   }
 }
 
-void Config::trim(string& s) {
+void CfgSvc::trim(string& s) {
   while ( (s.length() > 1) && ( (s[0] == ' ') || (s[0] =='\t') ) ) {
     s = s.substr(1, string::npos);
   }
@@ -111,15 +111,15 @@ void Config::trim(string& s) {
   }
 }
 
-void Config::symbolExpand(string& s) {
+void CfgSvc::symbolExpand(string& s) {
   symbolExpand(symbols, s);
 }
 
-void Config::envSymbolExpand(string& s) {
+void CfgSvc::envSymbolExpand(string& s) {
   symbolExpand(envSymbols, s);
 }
 
-void Config::symbolExpand(map<string, string>& symbols, string& s) {
+void CfgSvc::symbolExpand(map<string, string>& symbols, string& s) {
   bool expanded;
   do {
     expanded = false;
@@ -135,16 +135,16 @@ void Config::symbolExpand(map<string, string>& symbols, string& s) {
   } while (expanded);
 }
 
-string Config::pString(string name) {
+string CfgSvc::pString(string name) {
   map<string, string>::iterator i = symbols.find(name);
   if (i == symbols.end()) {
-    logError(cout << "The property '" << name << "' is not defined in '" << debugInfo << "'" << endl);
+    //logError(cout << "The property '" << name << "' is not defined in '" << debugInfo << "'" << endl);
     exit(4);
   }
   return i->second;
 }
 
-bool Config::pBool(string name) {
+bool CfgSvc::pBool(string name) {
   string val = pString(name);
 
   if ( (val == "yes") ||
@@ -160,13 +160,13 @@ bool Config::pBool(string name) {
   return false;
 }
 
-double Config::pDouble(string name) {
+double CfgSvc::pDouble(string name) {
   string val = pString(name);
 
   return atof(val.c_str());
 }
 
-int Config::pInt(string name) {
+int CfgSvc::pInt(string name) {
   string val = pString(name);
 
   return atoi(val.c_str());

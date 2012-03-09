@@ -4,6 +4,8 @@
 #include <string>
 #include <map>
 #include <list>
+
+#include "../inc/IInterface.h"
 using namespace std;
 
 /*
@@ -31,14 +33,18 @@ using namespace std;
    by exeptions, error return codes, ...
    */
 
-class Config {
+class CfgSvc:public IInterface {
+  public:  // IInterface
+    virtual std::string getName(){
+      return name; 
+    }
   public:
     /* Parse config file 'configFile'. If the process environment
      * is provided, environment variables can be used as expansion symbols.
      */
-    Config(string configFile, char** envp = 0);
+    CfgSvc(string configFile, char** envp = 0);
 
-    ~Config();
+    ~CfgSvc();
 
     // get string config entry
     string pString(string name);
@@ -56,23 +62,23 @@ class Config {
     int pInt(string name);
 
     // get the symbol map (e.g. for iterating over all symbols)
-    inline map<string, string>& getSymbols() {
+    inline std::map<string, string>& getSymbols() {
       return symbols;
     }
 
     // get config sub group
-    inline Config* group(string name) {
+    inline CfgSvc* group(string name) {
       return groups[name];
     }
 
     // get config sub group map (e.g. for iterating over all groups)
-    inline map<string, Config*>& getGroups() {
+    inline map<string, CfgSvc*>& getGroups() {
       return groups;
     }
 
   private:
     // private constructor for sub groups
-    Config(string name, string parentDebugInfo);
+    CfgSvc(string name, string parentDebugInfo);
 
     // helper functions for parsing
     void add(string name, string value);
@@ -89,10 +95,10 @@ class Config {
     map<string, string> envSymbols;
 
     // config sub group map
-    map<string, Config*> groups;
+    map<string, CfgSvc*> groups;
 
     // stack of config groups for parsing (only used in top config element)
-    list<Config*> groupStack;
+    std::list<CfgSvc*> groupStack;
 
     // debug info used for logging messages
     string debugInfo;
