@@ -20,8 +20,7 @@ class IManager:public IInterface{
     virtual T* createInterface(const std::string& className, const std::string& ifaceName)=0;
     virtual const std::vector<std::string> getKeys()=0;
 
-    template<class C>
-    virtual void registFactory(std::string className)=0
+    virtual void registFactory(std::string className)=0;
 
 };
 

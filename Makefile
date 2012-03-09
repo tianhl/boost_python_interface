@@ -20,7 +20,7 @@ SVCLIB  = test/libSvsBPI.so
 PYLIB   = test/PyInterface.so
 ALGLIB  = test/libAlgBPI.so
 
-all: ${ALGLIB} ${SVCLIB} ${EXESOURCE} ${PYLIB} 
+all: ${ALGLIB} ${SVCLIB} ${EXESOURCE} #${PYLIB} 
 	${CC} ${INCLUDE_FLAGS} -L test -lSvcBPI -lAlgBPI ${LIB_FLAGS}  ${EXESOURCE} -o test/test.exe
 
 ${PYLIB}:${PYSOURCE} ${KERNELSOURCE} 

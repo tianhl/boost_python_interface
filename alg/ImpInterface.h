@@ -22,8 +22,8 @@ class Imp2Interface :public ImpInterface{
 
 struct Register{
   Register(){
-    IfaceMgr::instance().regist<ImpInterface>("ImpInterface");
-    IfaceMgr::instance().regist<Imp2Interface>("Imp2Interface");
+    IfaceMgr::instance().registFactory<ImpInterface>("ImpInterface");
+    IfaceMgr::instance().registFactory<Imp2Interface>("Imp2Interface");
   }
 };
 #endif  // IMPINTERFACE_H

@@ -39,3 +39,29 @@ InterfaceWrapper.cpp
 
 test.cpp
 interface.py
+ 
+
+
+                                           
+       boost_python_interface_master  @   @ boost_python_interface_IManager
+                                       \ /
+                                        Y
+                                        |
+                                        |
+                                        @ boost_python_interface_master
+					| 
+                                       / \
+                                      /   \
+                                      \    \
+ boost_python_interface_dynamicManager @    @ boost_python_interface_master
+                                        \  /
+                                         \/ 
+                           (END)master   /
+                                  @     /
+                                   \   /
+                                    \ @ boost_python_interface_master
+                                     Y
+                                     |
+                                     |
+                                     @
+                                   master
